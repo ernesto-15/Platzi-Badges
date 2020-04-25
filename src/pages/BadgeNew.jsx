@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../components/Navbar';
 import Badge from '../components/Badge';
 import header from '../images/badge-header.svg';
-import '../components/styles/BadgeNew.css';
+import './styles/BadgeNew.css';
 
 const BadgeNew = () => {
   return (
