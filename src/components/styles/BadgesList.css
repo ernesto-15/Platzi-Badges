@@ -1,0 +1,47 @@
+.badge-item {
+  margin: 20px;
+  padding: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
+
+.badges-item__container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.badge-item__data h3, .badge-item__data p {
+  margin: 0;
+}
+
+.badge-item__data h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.badge-item__data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.twitter-icon {
+  color: #1fa0f1;
+}
+
+.badge-item__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-item__avatar img {
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.badge-item__data-icon {
+  height: 15px;
+  width: 15px;
+}
