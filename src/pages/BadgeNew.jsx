@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from '../components/Navbar';
 import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
 import header from '../images/badge-header.svg';
@@ -23,8 +22,7 @@ const BadgeNew = () => {
   }
 
   return (
-    <div>
-      <NavBar />
+    <>
       <div className="BadgeNew__hero">
         <img className="img-fluid" src={header} alt="Logo" />
       </div>
@@ -45,7 +43,7 @@ const BadgeNew = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

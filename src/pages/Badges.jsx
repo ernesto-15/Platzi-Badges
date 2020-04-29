@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
 import BadgesList from '../components/BadgesList';
 import confLogo from '../images/badge-header.svg';
+import { Link } from 'react-router-dom';
 import './styles/Badges.css';
 
 const badges = [
@@ -41,8 +41,7 @@ const Badges = () => {
   const [data] = useState(badges);
 
   return (
-    <div>
-      <Navbar />
+    <>
       <div className="Badges">
         <div className="Badges__hero">
           <div className="Badges__container">
@@ -53,9 +52,9 @@ const Badges = () => {
 
       <div className="Badges__container">
         <div className="Badges__buttons">
-          <a href="/badges/new" className="btn btn-primary">
+          <Link to="/badges/new" className="btn btn-primary">
             New Badge
-          </a>
+          </Link>
         </div>
 
         <div className="Badges__list">
@@ -64,7 +63,7 @@ const Badges = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
