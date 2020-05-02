@@ -1,8 +1,19 @@
 import React from 'react';
 import twitterIcon from '../images/twitter.png';
 import './styles/BadgesList.css';
+import { Link } from 'react-router-dom';
 
 const BadgesList = ({ badges }) => {
+
+  if(badges.length === 0) {
+    return (
+      <div>
+        <h3>No badges were found</h3>
+        <Link className="btn btn-primary" to="/badges/new" >Create a new badge</Link>
+      </div>
+    )
+  }
+
   return (
     <ul className="list-unstyled">
       {badges.map((badge) => (
