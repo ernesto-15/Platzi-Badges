@@ -1,8 +1,9 @@
 import React from 'react';
+import Gravatar from './Gravatar'
 import confLogo from '../images/badge-header.svg';
 import './styles/Badge.css';
 
-const Badge = ({ firstName, lastName, jobTitle, twitter, avatarUrl }) => {
+const Badge = ({ firstName, lastName, jobTitle, twitter, email }) => {
   return (
     <div className="Badge">
       <div className="Badge__header">
@@ -10,9 +11,9 @@ const Badge = ({ firstName, lastName, jobTitle, twitter, avatarUrl }) => {
       </div>
 
       <div className="Badge__section-name">
-        <img
+        <Gravatar
           className="Badge__avatar"
-          src={avatarUrl}
+          email={email}
           alt="Avatar"
         />
         <h1>

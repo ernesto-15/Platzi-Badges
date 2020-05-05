@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import BadgesList from '../components/BadgesList';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 import confLogo from '../images/badge-header.svg';
 import { Link } from 'react-router-dom';
-import api from '../api'
+import api from '../api';
 import './styles/Badges.css';
 
 const Badges = () => {
@@ -11,28 +13,28 @@ const Badges = () => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    setIsLoading(true)
-    setError(null)
+    setIsLoading(true);
+    setError(null);
     try {
-      const data = await api.badges.list()
-      setData(data)
-      setIsLoading(false)
-    } catch(error) {
-      setIsLoading(false)
-      setError(error)
+      const data = await api.badges.list();
+      setData(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  if(isLoading) {
-    return 'Loading...'
+  if (isLoading) {
+    return <Loading />;
   }
 
-  if(error) {
-    return `Error: ${error.message}`
+  if (error) {
+    return <Error error={error} />;
   }
 
   return (

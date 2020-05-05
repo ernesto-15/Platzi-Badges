@@ -1,19 +1,15 @@
 import React from 'react';
 
-const BadgeForm = ({ onChange, formValues }) => {
+const BadgeForm = ({ onChange, formValues, onSubmit, error }) => {
 
   const handleClick = (e) => {
     console.log('button');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <div>
       <h1>New Attendant</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Firs Name</label>
           <input
@@ -72,6 +68,7 @@ const BadgeForm = ({ onChange, formValues }) => {
         <button onClick={handleClick} className="btn btn-primary">
           Save
         </button>
+        {error && <p className="text-danger">{error.message}</p>}
       </form>
     </div>
   );

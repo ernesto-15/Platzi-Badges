@@ -1,4 +1,5 @@
 import React from 'react';
+import Gravatar from './Gravatar'
 import twitterIcon from '../images/twitter.png';
 import './styles/BadgesList.css';
 import { Link } from 'react-router-dom';
@@ -23,7 +24,7 @@ const BadgesList = ({ badges }) => {
         >
           <div className="badges-item__container">
             <div className="badge-item__avatar">
-              <img src={badge.avatarUrl} alt="avatar" />
+              <Gravatar email={badge.email}/>
             </div>
             <div className="badge-item__data">
               <h3>{badge.firstName}</h3>

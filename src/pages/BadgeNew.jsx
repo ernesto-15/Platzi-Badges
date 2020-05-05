@@ -1,24 +1,45 @@
 import React, { useState } from 'react';
 import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
-import header from '../images/badge-header.svg';
+import Loading from '../components/Loading';
+import header from '../images/platziconf-logo.svg';
+import api from '../api';
 import './styles/BadgeNew.css';
 
-const BadgeNew = () => {
-
+const BadgeNew = (props) => {
   const [formData, SetFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     jobTitle: '',
     twitter: '',
-  })
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     SetFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await api.badges.create(formData);
+      setLoading(false);
+      props.history.push('/badges')
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -30,16 +51,20 @@ const BadgeNew = () => {
         <div className="row align-items-center">
           <div className="col-12 col-md-6">
             <Badge
-              firstName={formData.firstName}
-              lastName={formData.lastName}
-              jobTitle={formData.jobTitle}
-              twitter={formData.twitter}
-              email={formData.email}
-              avatarUrl="https://images.pexels.com/photos/1735658/pexels-photo-1735658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+              firstName={formData.firstName || 'First Name'}
+              lastName={formData.lastName || 'Last Name'}
+              jobTitle={formData.jobTitle || 'Job Title'}
+              twitter={formData.twitter || 'Twitter'}
+              email={formData.email || 'Email'}
             />
           </div>
           <div className="col-12 col-md-6">
-            <BadgeForm formValues={formData} onChange={handleChange} />
+            <BadgeForm
+              formValues={formData}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+              error={error}
+            />
           </div>
         </div>
       </div>
