@@ -1,5 +1,6 @@
 import React from 'react';
 import BadgeNew from '../pages/BadgeNew';
+import BadgeEdit from '../pages/BadgeEdit';
 import Badges from '../pages/Badges';
 import Navbar from './Navbar';
 import NotFound from '../pages/NotFound';
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/badges" exact component={Badges} />
           <Route path="/badges/new" exact component={BadgeNew} />
+          <Route path="/badges/:badgeId/edit" exact component={BadgeEdit} />
           <Route component={NotFound} />
         </Switch>
     </BrowserRouter>

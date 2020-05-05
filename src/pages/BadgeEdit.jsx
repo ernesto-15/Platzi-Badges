@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
 import Loading from '../components/Loading';
 import header from '../images/platziconf-logo.svg';
 import api from '../api';
-import './styles/BadgeNew.css';
+import './styles/BadgeEdit.css';
 
-const BadgeNew = (props) => {
+const BadgeEdit = (props) => {
   const [formData, SetFormData] = useState({
     firstName: '',
     lastName: '',
@@ -15,8 +15,25 @@ const BadgeNew = (props) => {
     twitter: '',
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await api.badges.read(props.match.params.badgeId);
+      SetFormData(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     SetFormData({
@@ -29,7 +46,7 @@ const BadgeNew = (props) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.badges.create(formData);
+      await api.badges.update(props.match.params.badgeId, formData);
       setLoading(false);
       props.history.push('/badges');
     } catch (error) {
@@ -44,7 +61,7 @@ const BadgeNew = (props) => {
 
   return (
     <>
-      <div className="BadgeNew__hero">
+      <div className="BadgeEdit__hero">
         <img className="img-fluid" src={header} alt="Logo" />
       </div>
       <div className="container">
@@ -59,7 +76,7 @@ const BadgeNew = (props) => {
             />
           </div>
           <div className="col-12 col-md-6">
-            <h1>New Attendant</h1>
+            <h1>Edit Attendant</h1>
             <BadgeForm
               formValues={formData}
               onChange={handleChange}
@@ -73,4 +90,4 @@ const BadgeNew = (props) => {
   );
 };
 
-export default BadgeNew;
+export default BadgeEdit;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BadgesList from '../components/BadgesList';
 import Loading from '../components/Loading';
+import MiniLoader from '../components/MiniLoader';
 import Error from '../components/Error';
 import confLogo from '../images/badge-header.svg';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,7 @@ const Badges = () => {
       const data = await api.badges.list();
       setData(data);
       setIsLoading(false);
+      console.log('object');
     } catch (error) {
       setIsLoading(false);
       setError(error);
@@ -27,9 +29,13 @@ const Badges = () => {
 
   useEffect(() => {
     fetchData();
+    const interval = setInterval(fetchData, 5000);
+    return () => {
+      clearInterval(interval)
+    };
   }, []);
 
-  if (isLoading) {
+  if (isLoading && !data) {
     return <Loading />;
   }
 
@@ -57,6 +63,7 @@ const Badges = () => {
         <div className="Badges__list">
           <div className="Badges__container">
             <BadgesList badges={data} />
+            {isLoading && <MiniLoader />}
           </div>
         </div>
       </div>
