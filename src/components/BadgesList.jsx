@@ -25,7 +25,7 @@ const BadgesList = ({ badges }) => {
         >
           <Link
             className="text-reset text-decoration-none"
-            to={`/badges/${badge.id}/edit`}
+            to={`/badges/${badge.id}`}
           >
             <div className="badges-item__container">
               <div className="badge-item__avatar">
