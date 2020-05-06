@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import confLofo from '../images/platziconf-logo.svg';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import DeleteBadgeModal from '../components/DeleteBadgeModal';
 import Badge from '../components/Badge';
 import api from '../api';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,7 @@ const BadgeDetails = (props) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -21,6 +23,23 @@ const BadgeDetails = (props) => {
       setData(data);
       setLoading(false);
       console.log(data);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  const handleClose = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const onDelete = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await api.badges.remove(props.match.params.badgeId);
+      setLoading(false);
+      props.history.push('/badges');
     } catch (error) {
       setLoading(false);
       setError(error);
@@ -70,10 +89,26 @@ const BadgeDetails = (props) => {
             <h2>Actions</h2>
             <div>
               <div>
-                <Link className="btn btn-warning mb-4" to={`/badges/${data.id}/edit`}>Edit</Link>
+                <Link
+                  className="btn btn-warning mb-4"
+                  to={`/badges/${data.id}/edit`}
+                >
+                  Edit
+                </Link>
               </div>
               <div>
-                <button className="btn btn-danger" to={`/badges/${data.id}/edit`}>Delete</button> 
+                <button
+                  className="btn btn-danger"
+                  onClick={handleClose}
+                  to={`/badges/${data.id}/edit`}
+                >
+                  Delete
+                </button>
+                <DeleteBadgeModal
+                  onDelete={onDelete}
+                  isOpen={isOpen}
+                  onClose={handleClose}
+                />
               </div>
             </div>
           </div>
